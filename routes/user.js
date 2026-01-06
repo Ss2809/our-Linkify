@@ -2,6 +2,7 @@ const express = require("express");
 const User = require("../module/user");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+
 const authmiddleware = require("../middleware/auth");
 const sendSMTPEmail = require("../config/smtp");
 const router = express.Router();
@@ -210,6 +211,7 @@ const creattoken = (data, key) => {
 
 router.post("/:userId/follow", authmiddleware, async (req, res) => {
   const userid = req.params.userId.trim();
+  
   const currentuserId = req.user._id.trim();
   //console.log({userid,currentuserId})
   if (userid === currentuserId) {
@@ -245,6 +247,7 @@ router.post("/:userId/follow", authmiddleware, async (req, res) => {
 
 router.post("/reject-request/:userId", authmiddleware, async (req, res) => {
   const userid = req.params.userId.trim();
+  
   const currentuserId = req.user._id.trim();
   //console.log({userid,currentuserId})
   if (userid === currentuserId) {
@@ -271,6 +274,7 @@ router.post("/reject-request/:userId", authmiddleware, async (req, res) => {
 
 router.post("/accept-request/:userId", authmiddleware, async (req, res) => {
   const userid = req.params.userId.trim();
+ 
   const currentuserId = req.user._id.trim();
   //console.log({userid,currentuserId})
   if (userid === currentuserId) {
@@ -300,7 +304,7 @@ router.post("/accept-request/:userId", authmiddleware, async (req, res) => {
 
 router.get("/:userId/followers", authmiddleware, async (req, res) => {
   const userId = req.params.userId;
-
+ 
   const user = await User.findById(userId).populate(
     "followers",
     "username profilename"
@@ -318,7 +322,7 @@ router.get("/:userId/followers", authmiddleware, async (req, res) => {
 
 router.get("/:userId/following", authmiddleware, async (req, res) => {
   const userId = req.params.userId;
-
+ 
   const user = await User.findById(userId).populate(
     "following",
     "username profilename"
@@ -336,6 +340,7 @@ router.get("/:userId/following", authmiddleware, async (req, res) => {
 
 router.get("/:userId/unFollow", authmiddleware, async (req, res) => {
   const userId = req.params.userId;
+  
   const currentuserId = req.user._id;
   if (userId === currentuserId) {
     return res.status(404).json({ message: "Same User || Own Account" });
