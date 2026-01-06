@@ -83,7 +83,7 @@ router.post("/login", async (req, res) => {
   res.json({ message: "Login succfully!!", accesstoken });
 });
 
-router.post("/refresh", async (req, res) => {
+router.post("/refresh", async(req, res) => {
   // 1. Take refresh token from cookies or request body
   const refrehtoken = req.cookies.refreshtoken;
   // 2. If refresh token not present → send "Login required" response
@@ -176,7 +176,7 @@ router.post("/reset-request-password", async (req, res) => {
 
 router.post("/reset-password", async (req, res) => {
   const { resetoken, newpassword } = req.body;
-  console.log({ resetoken, newpassword });
+  //console.log({ resetoken, newpassword });
 
   let decoderUser;
   try {
