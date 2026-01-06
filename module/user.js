@@ -28,6 +28,11 @@ const userschema = new mongoose.Schema({
   isPrivate: { type: Boolean, default: "false" },
   gender: { type: String, enum: ["Male", "Female", "other"] },
   phonenumber: { type: Number, trim: true },
+  resetToken : {type:String},
+  expiresTime : {type:Date},
+  followers : [{type: mongoose.Schema.Types.ObjectId, ref:"User"}],
+  following : [{type: mongoose.Schema.Types.ObjectId, ref:"User"}],
+  followRequest :[ {type: mongoose.Schema.Types.ObjectId, ref:"User"}]
 });
 
 const User = mongoose.model("User", userschema);
